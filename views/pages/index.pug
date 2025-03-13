@@ -1,0 +1,61 @@
+extends ../layouts/default.pug
+
+block content
+  .container.mt-5
+    //- Header của trang
+    .d-flex.justify-content-between.align-items-center.mb-4
+      h1.text-dark.mb-0 Todo List
+      a.btn.btn-success(href='/todo-list/add-task') Add New Task
+
+    //- Nếu có tasks
+    if tasks && tasks.length
+      .row.g-4
+        each task in tasks
+          .col-md-4
+            .card.h-100.shadow-sm
+              //- Card header: màu thay đổi tùy theo trạng thái task
+              if task.status === 'completed'
+                .card-header.bg-success.text-white
+                  h5.mb-0= task.title
+              else
+                .card-header.bg-primary.text-white
+                  h5.mb-0= task.title
+
+              //- Card body chứa thông tin task
+              .card-body.text-dark
+                if task.description
+                  p.card-text= task.description
+                p.card-text 
+                  small.text-muted
+                    | 📅 Due Date: 
+                    strong= task.dueDate ? task.dueDate.toLocaleDateString() : 'N/A'
+                p.card-text 
+                  small.text-muted
+                    | 🕒 Created At: 
+                    strong= task.createdAt ? task.createdAt.toLocaleDateString() : 'N/A'
+                if task.priority
+                  p.card-text.mb-0 
+                    | 🔥 Priority: 
+                    span.badge.bg-info.text-dark= task.priority.charAt(0).toUpperCase() + task.priority.slice(1)
+
+
+              //- Card footer với nút hành động
+              .card-footer.bg-light
+                .d-flex.justify-content-between.align-items-center
+                  if task.status !== 'completed'
+                    form(method="POST", action='/todo-list/complete/' + task._id +'?_method=PATCH')
+                      button.btn.btn-sm.btn-outline-success(type="submit") Mark as Completed
+                  else
+                    span.text-success.fw-bold Completed
+                  
+                  .btn-group
+                    a.btn.btn-sm.btn-outline-primary(href='/todo-list/edit/' + task._id) Edit
+
+                    form(action='/todo-list/delete/' + task._id method='POST' style='display:inline;')
+                      input(type='hidden' name='_method' value='DELETE')
+                      button.btn.btn-sm.btn-outline-danger(type='submit' onclick="return confirm('Are you sure?')") Delete
+
+
+    else
+      .text-center.mt-5
+        p.text-muted No tasks found.

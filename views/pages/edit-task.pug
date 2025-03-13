@@ -1,0 +1,48 @@
+extends ../layouts/default.pug
+
+block content
+  .container.mt-4
+    h1.text-center.mb-4.text-dark Edit Task
+
+    // Form gửi dữ liệu để cập nhật task (sử dụng method override PATCH)
+    form(method="POST", action="/todo-list/edit-task/" + task._id +'?_method=PATCH')
+      //- Nếu bạn dùng method override, thêm input ẩn để chuyển POST thành PATCH:
+      input(type="hidden", name="_method", value="PATCH")
+      
+      .mb-3
+        label.form-label(for="title") Title:
+        input#title.form-control(
+          type="text",
+          name="title",
+          required,
+          value=(task ? task.title : '')
+        )
+      
+      .mb-3
+        label.form-label(for="description") Description:
+        textarea#description.form-control(
+          name="description",
+          rows="3"
+        ) #{task ? task.description : ''}
+
+      .mb-3
+        label.form-label(for="dueDate") Due Date:
+        //- Chuyển đổi task.dueDate thành định dạng yyyy-mm-dd nếu tồn tại
+        input#dueDate.form-control(
+          type="date",
+          name="dueDate",
+          required,
+          value=(task && task.dueDate ? task.dueDate.toISOString().split('T')[0] : '')
+        )
+
+      .mb-3
+        label.form-label Priority:
+        select.form-select(name="priority")
+          option(value="low", selected=(task && task.priority === 'low' ? true : false)) Low
+          option(value="medium", selected=(task && task.priority === 'medium' ? true : false)) Medium
+          option(value="high", selected=(task && task.priority === 'high' ? true : false)) High
+
+
+      .text-center.mt-4
+        button.btn.btn-primary(type="submit") Save Changes
+        a.btn.btn-secondary.ms-3(href="/todo-list") Cancel

@@ -1,0 +1,30 @@
+extends ../layouts/default.pug
+
+block content
+    .container.mt-5
+        .card.shadow-lg.p-4
+            h2.text-center.mb-4 Add New Task
+
+            form(method="POST", action="/todo-list/add/")
+                .mb-3
+                    label.form-label(for="title") Title:
+                    input#title.form-control(type="text" name="title" required)
+
+                .mb-3
+                    label.form-label(for="description") Description:
+                    textarea#description.form-control(name="description" rows="3")
+
+                .mb-3
+                    label.form-label(for="dueDate") Due Date:
+                    input#dueDate.form-control(type="date" name="dueDate" required)
+
+                .mb-3
+                    label.form-label Priority:
+                    select.form-select(name="priority")
+                        option(value="low") Low
+                        option(value="medium" selected) Medium
+                        option(value="high") High
+
+                .text-center
+                    button.btn.btn-primary(type="submit") Add Task
+                    a.btn.btn-secondary.ms-3(href="/todo-list") Cancel
