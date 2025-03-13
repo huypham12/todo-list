@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const mongo_uri = 'mongodb://localhost:27017/todo-list-db'
+const mongo_uri = 'mongodb+srv://huypham:123@todo-db.whz9e.mongodb.net/'
 
 const connect = async ()=>{
   try{
