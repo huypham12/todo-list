@@ -1,13 +1,12 @@
 const routerTodo = require('./routes/index.routes.js')
+require('dotenv').config();
 const express = require('express')
 const methodOverride = require('method-override')
 const bodyParser = require('body-parser')
 
 
-
-
 const app = express()
-const port = 3000
+const port = process.env.PORT
 
 // cấu hình sử dụng pug trong views
 app.set('view engine', 'pug')
