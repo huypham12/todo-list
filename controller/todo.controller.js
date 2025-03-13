@@ -21,7 +21,7 @@ module.exports.Create = async (req, res) => {
     const newTask = new TodoList({ title, description, dueDate, priority })
 
     await newTask.save()
-    res.redirect('/todo-list')
+    res.redirect('/')
   } catch {
     console.log('thêm thất bại')
   }
@@ -60,7 +60,7 @@ module.exports.EditTask = async (req, res) => {
     }
   )
 
-  res.redirect("/todo-list");
+  res.redirect("/");
 }
 
 
@@ -69,12 +69,12 @@ module.exports.EditTask = async (req, res) => {
 module.exports.Completed = async (req, res) => {
   const id = req.params.id
   await TodoList.updateOne({_id: id}, {status: 'completed'})
-  res.redirect('/todo-list')
+  res.redirect('/')
 }
 
 // DELETE
 module.exports.Delete = async (req, res) => {
   const id = req.params.id
   await TodoList.deleteOne({_id: id})
-  res.redirect('/todo-list')
+  res.redirect('/')
 }

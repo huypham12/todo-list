@@ -5,7 +5,7 @@ block content
     //- Header của trang
     .d-flex.justify-content-between.align-items-center.mb-4
       h1.text-dark.mb-0 Todo List
-      a.btn.btn-success(href='/todo-list/add-task') Add New Task
+      a.btn.btn-success(href='/add-task') Add New Task
 
     //- Nếu có tasks
     if tasks && tasks.length
@@ -43,17 +43,17 @@ block content
               .card-footer.bg-light
                 .d-flex.justify-content-between.align-items-center
                   if task.status !== 'completed'
-                    form(method="POST", action='/todo-list/complete/' + task._id +'?_method=PATCH')
+                    form(method="POST", action='/complete/' + task._id +'?_method=PATCH')
                       button.btn.btn-sm.btn-outline-success(type="submit") Mark as Completed
                   else
                     span.text-success.fw-bold Completed
                   
                   .btn-group
-                    a.btn.btn-sm.btn-outline-primary(href='/todo-list/edit/' + task._id) Edit
+                    a.btn.btn-sm.btn-outline-primary(href='/edit/' + task._id) Edit
 
                     form(
                       method="POST"
-                      action="/todo-list/delete/" + task._id +'?_method=DELETE'
+                      action="/delete/" + task._id +'?_method=DELETE'
                       style='display:inline;'
                       )
                       input(type='hidden' name='_method' value='DELETE')

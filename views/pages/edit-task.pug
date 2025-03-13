@@ -5,7 +5,7 @@ block content
     h1.text-center.mb-4.text-dark Edit Task
 
     // Form gửi dữ liệu để cập nhật task (sử dụng method override PATCH)
-    form(method="POST", action="/todo-list/edit-task/" + task._id +'?_method=PATCH')
+    form(method="POST", action="/edit-task/" + task._id +'?_method=PATCH')
       //- Nếu bạn dùng method override, thêm input ẩn để chuyển POST thành PATCH:
       input(type="hidden", name="_method", value="PATCH")
       
@@ -45,4 +45,4 @@ block content
 
       .text-center.mt-4
         button.btn.btn-primary(type="submit") Save Changes
-        a.btn.btn-secondary.ms-3(href="/todo-list") Cancel
+        a.btn.btn-secondary.ms-3(href="/") Cancel
