@@ -71,3 +71,10 @@ module.exports.Completed = async (req, res) => {
   await TodoList.updateOne({_id: id}, {status: 'completed'})
   res.redirect('/todo-list')
 }
+
+// DELETE
+module.exports.Delete = async (req, res) => {
+  const id = req.params.id
+  await TodoList.deleteOne({_id: id})
+  res.redirect('/todo-list')
+}

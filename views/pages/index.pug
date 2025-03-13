@@ -51,7 +51,11 @@ block content
                   .btn-group
                     a.btn.btn-sm.btn-outline-primary(href='/todo-list/edit/' + task._id) Edit
 
-                    form(action='/todo-list/delete/' + task._id method='POST' style='display:inline;')
+                    form(
+                      method="POST"
+                      action="/todo-list/delete/" + task._id +'?_method=DELETE'
+                      style='display:inline;'
+                      )
                       input(type='hidden' name='_method' value='DELETE')
                       button.btn.btn-sm.btn-outline-danger(type='submit' onclick="return confirm('Are you sure?')") Delete
 
